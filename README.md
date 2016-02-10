@@ -16,19 +16,20 @@ Usage
 
 Simply require the library, load a few \*.po files and start using any of the gettext interfaces to translate your strings:
 
-    var gettext = require('gettext'),
-        _ = gettext.gettext;
+    var gettext = require('gettext');
 
-    gettext.loadLanguageFile('./locale/de/messages.po', 'de');
-    gettext.loadLanguageFile('./locale/fr/messages.po', 'fr');
+    gettext.loadLanguageFile('./locale/de/messages.po', 'de', function(){
+        gettext.loadLanguageFile('./locale/fr/messages.po', 'fr', function(){
+            gettext.setlocale('LC_ALL', 'de');
 
-    gettext.setlocale('LC_ALL', 'de');
+            console.log(gettext.gettext('Hello, World!'));
 
-    console.log(_('Hello, World!'));
+            gettext.setlocale('LC_ALL', 'fr');
 
-    gettext.setlocale('LC_ALL', 'fr');
+            console.log(gettext.gettext('Hello, World!'));
+        });
+    });
 
-    console.log(_('Hello, World!'));
 
 
 Install
